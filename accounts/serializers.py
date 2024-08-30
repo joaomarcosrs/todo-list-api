@@ -51,10 +51,3 @@ class LoginSerializer(serializers.Serializer):
         
         return data
     
-    # def create(self, validated_data):
-    #     user = validated_data['user']
-    #     request = self.context.get('request')
-    #     login(request, user)
-    #     token, _ = Token.objects.get_or_create(user=user)
-        
-    #     return {'token': token.key}
