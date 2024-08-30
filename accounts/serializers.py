@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate, login
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 
@@ -31,3 +32,29 @@ class AccountsSerializer(serializers.ModelSerializer):
         token, _ = Token.objects.get_or_create(user=user)
         
         return {'token': token.key}
+    
+class LoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)
+    
+    def validate(self, data):
+        email = data.get('email')
+        password = data.get('password')
+        if not email or not password:
+            raise serializers.ValidationError('You must include email and password!')
+        
+        user = authenticate(request=self.context.get('request'), username=email, password=password)
+        if not user:
+            raise serializers.ValidationError('Unable to log in with credentials.')
+        
+        data['user'] = user
+        
+        return data
+    
+    # def create(self, validated_data):
+    #     user = validated_data['user']
+    #     request = self.context.get('request')
+    #     login(request, user)
+    #     token, _ = Token.objects.get_or_create(user=user)
+        
+    #     return {'token': token.key}
