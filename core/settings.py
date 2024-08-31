@@ -33,7 +33,8 @@ INSTALLED_APPS = [
     'corsheaders',
     
     #Modules
-    'accounts',
+    'accounts.apps.AccountsConfig',
+    'todos.apps.TodosConfig',
 ]
 
 MIDDLEWARE = [
@@ -122,11 +123,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.SessionAuthentication",
-        "rest_framework.authentication.TokenAuthentication",
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
-    "DEFAULT_PERMISSION_CLASSES": (
-        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
+    'EXCEPTION_HANDLER': 'core.exceptions.custom_exceptions_handle',
 }
