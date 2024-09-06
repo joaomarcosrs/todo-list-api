@@ -25,3 +25,12 @@ python3 -c 'from django.core.management.utils import get_random_secret_key; prin
 ```
 python manage.py runserver
 ```
+### API Endpoints:
+#### Auth
+  - POST /register/
+  - POST /login/
+#### Todos
+  - POST /todos/
+  - PUT /todos/id/
+  - DELETE /todos/id/
+  - GET /todos?page=1&limit=10
